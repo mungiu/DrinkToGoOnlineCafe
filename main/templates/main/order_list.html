@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+    Order List
+{% endblock %}
+
+{% block content %}
+    <h1>Order list for: {{ ls.name }} </h1>
+    <h3>Incomplete orders: </h3>
+    {% for item in ls.order_set.all %}
+        {% if item.complete == False %}
+            <ul>
+                <li>Order number: {{ item.number }}</li>
+            </ul>
+        {% endif %}
+    {% endfor %}
+    <h3>Completes orders: </h3>
+    {% for item in ls.order_set.all %}
+        {% if item.complete == True %}
+            <ul>
+                <li>Order number: {{ item.number }}</li>
+            </ul>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

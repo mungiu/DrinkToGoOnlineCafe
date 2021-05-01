@@ -20,5 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # if the user types in .../dtg_cafe/ then it hits this endpoint
     # anything that is types after ../dtg_cafe/ will be forwarded to "main.urls" as a path
-    path('dtg_cafe/', include("main.urls"))
+    path('', include("main.urls"))
 ]
