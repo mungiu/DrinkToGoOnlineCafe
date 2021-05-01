@@ -1,0 +1,16 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+    Create Order
+{% endblock %}
+
+
+{% block content %}
+    <h1>Create Order Page</h1>
+    <form method="post" action="/create_order/">
+        {% csrf_token %} <!-- Cross-site request forgery -->
+        {{ form.as_p }} <!-- Indicates where to render the form, "_p" ensure <br> between elements>-->
+        <button type="submit" , name="save">Create order</button>
+    </form>
+{% endblock %}
