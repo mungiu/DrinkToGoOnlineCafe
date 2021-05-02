@@ -7,10 +7,10 @@
 
 
 {% block content %}
-    <h1>Create Order Page</h1>
+    <h2>Create Order Page</h2>
     <form method="post" action="/create_order/">
         {% csrf_token %} <!-- Cross-site request forgery -->
         {{ form.as_p }} <!-- Indicates where to render the form, "_p" ensure <br> between elements>-->
-        <button type="submit" , name="save">Create order</button>
+        <button type="submit" , name="save">Save</button>
     </form>
 {% endblock %}

@@ -12,7 +12,7 @@
     {% for order in ls.order_set.all %}
         {% if order.complete == False %}
             <ul>
-                <li><a href="http://127.0.0.1:8000/edit_order/{{ ls.name }}/{{ order.number }}">Order number: {{ order.number }}</a></li>
+                <li><a href="http://127.0.0.1:8000/view_order/{{ ls.name }}/{{ order.number }}">Order number: {{ order.number }}</a></li>
             </ul>
         {% endif %}
     {% endfor %}
@@ -21,7 +21,7 @@
     {% for order in ls.order_set.all %}
         {% if order.complete == True %}
  <ul>
-                <li><a href="http://127.0.0.1:8000/edit_order/{{ ls.name }}/{{ order.number }}">Order number: {{ order.number }}</a></li>
+                <li><a href="http://127.0.0.1:8000/view_order/{{ ls.name }}/{{ order.number }}">Order number: {{ order.number }}</a></li>
             </ul>
         {% endif %}
     {% endfor %}

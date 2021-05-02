@@ -1,7 +1,6 @@
 from django.db import models
+from .ENUMS import DRINKS, SIZES
 
-
-# Create your models here.
 
 class OrderList(models.Model):
     name = models.CharField(max_length=200)
@@ -16,21 +15,21 @@ class Order(models.Model):
     complete = models.BooleanField()
 
     def __str__(self):
-        return "Order number: " + self.number
+        return ("Order number: " + self.number +
+                " Order List: " + self.order_list.name)
 
 
 class Cocktail(models.Model):
+    # Field types implementation
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    drink = models.CharField(max_length=200)
-    price = models.CharField(max_length=200)
-    size = models.CharField(max_length=200)
-    vat = models.CharField(max_length=200)
+    drink = models.CharField(max_length=200, choices=DRINKS)
+    size = models.CharField(max_length=200, choices=SIZES)
+    price = models.Field(max_length=200)
     comment = models.CharField(max_length=500)
 
     def __str__(self):
         return ("Drink: " + self.drink +
                 " Size: " + self.size +
                 " Vat %: " + self.vat +
-                " Price before taxes: " + self.price +
-                " Price after taxes: " + (float(self.price)*(1 + (float(self.vat)/100))) +
+                " Price after taxes: " + self.price +
                 " Comment: " + self.comment)

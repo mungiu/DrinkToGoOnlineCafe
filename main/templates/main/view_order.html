@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+    View Order
+{% endblock %}
+
+
+{% block content %}
+    <h1>Order details for order number: {{ order.number }} </h1>
+    <p>In the future you should be able to edit your order in here</p>
+    <h3>Completion status: </h3>
+
+    {% if order.complete == False %}
+        <p>Incomplete</p>
+    {% elif order.complete == True %}
+        <p>Complete</p>
+    {% endif %}
+
+    {% for cocktail in ordered_cocktails %}
+        {% if cocktail.drink == "Tea" %}
+            {% if cocktail.size == "Big" %}
+                <p>Price is: 11.5</p>
+            {% elif cocktail.size == "Medium" %}
+                <p>Price is: 11.0</p>
+            {% elif cocktail.size == "Small" %}
+                <p>Price is: 10.0</p>
+            {% endif %}
+        {% elif cocktail.drink == "Cpffee" %}
+            {% if cocktail.size == "Big" %}
+                <p>Price is: 11.5</p>
+            {% elif cocktail.size == "Medium" %}
+                <p>Price is: 11.0</p>
+            {% elif cocktail.size == "Small" %}
+                <p>Price is: 10.0</p>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %}
+    Create Cocktail Form
+{% endblock %}
+
+
+{% block content %}
+    <h2>Order your Cocktail:</h2>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" , name="save">Save</button>
+        <a href="{% url 'cocktail_form' %}">Clear</a>
+    </form>
+{% endblock %}
