@@ -1,5 +1,4 @@
 from django.db import models
-from .ENUMS import DRINKS, SIZES
 
 
 class OrderList(models.Model):
@@ -16,20 +15,26 @@ class Order(models.Model):
 
     def __str__(self):
         return ("Order number: " + self.number +
-                " Order List: " + self.order_list.name)
+                " Order list name: " + self.order_list.name)
+
+
+class Drink(models.Model):
+    name = models.CharField(max_length=200)
+    price = models.FloatField(max_length=200)
+    size = models.CharField(max_length=200)
+    vat = models.FloatField(max_length=200)
+
+    def __str__(self):
+        return ("Drink name: " + self.name +
+                " Drink Price: " + str(self.price))
 
 
 class Cocktail(models.Model):
     # Field types implementation
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    drink = models.CharField(max_length=200, choices=DRINKS)
-    size = models.CharField(max_length=200, choices=SIZES)
-    price = models.Field(max_length=200)
+    drink = models.ForeignKey(Drink, on_delete=models.CASCADE)
     comment = models.CharField(max_length=500)
 
     def __str__(self):
-        return ("Drink: " + self.drink +
-                " Size: " + self.size +
-                " Vat %: " + self.vat +
-                " Price after taxes: " + self.price +
+        return ("Drink: " + str(self.drink) +
                 " Comment: " + self.comment)
