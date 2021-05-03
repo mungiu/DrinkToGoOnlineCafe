@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from .models import OrderList, Order, Cocktail, Drink
-from .forms import CreateOrderForm, CreateCocktailForm
+from .forms import CreateOrderForm, CreateCocktailForm, CreateOrderListForm
 
 
 # Create your views here.
@@ -13,6 +13,17 @@ def home(response):
 def order_list(response, list_name):
     ls = OrderList.objects.get(name=list_name)
     return render(response, "main/order_list.html", {"ls": ls})
+
+
+def create_order_list(response):
+    if response.method == "POST":
+        form = CreateOrderListForm(response.POST)
+        if form.is_valid():
+            new_order_list = OrderList()
+            new_order_list.name = form.cleaned_data["name"]
+            new_order_list.save()
+            return HttpResponseRedirect("../order_list/%s" % str(OrderList.objects.get(
+                name=form.cleaned_data["order_list"].name).name))
 
 
 def create_order(response):
@@ -40,16 +51,21 @@ def create_cocktail(response):
         if form.is_valid():  # is_valid() exists because CreateOrderForm inherits fom forms.Form
             new_cocktail = Cocktail()
             new_cocktail.order = Order.objects.get(
-                number=form.cleaned_data["number"],
-                complete=form.cleaned_data["complete"])
+                number=form.cleaned_data["order"].number,
+                complete=form.cleaned_data["order"].complete)
             new_cocktail.drink = Drink.objects.get(
-                name=form.cleaned_data["name"],
-                price=form.cleaned_data["price"],
-                size=form.cleaned_data["size"],
-                vat=form.cleaned_data["vat"]).id
+                name=form.cleaned_data["drink"].name,
+                price=form.cleaned_data["drink"].price,
+                size=form.cleaned_data["drink"].size,
+                vat=form.cleaned_data["drink"].vat)
             new_cocktail.comment = form.cleaned_data["comment"]
             new_cocktail.save()
-            return HttpResponseRedirect("../admin")
+            return HttpResponseRedirect("../view_order/%s/%s"
+                                        % (Order.objects.get(number=
+                                                             form.cleaned_data["order"].number).order_list.name,
+                                           Order.objects.get(number=
+                                                             form.cleaned_data["order"].number).number
+                                           ))
     else:
         form = CreateCocktailForm()
     return render(response, "main/create_cocktail.html", {"form": form})

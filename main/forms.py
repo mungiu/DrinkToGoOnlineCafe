@@ -3,6 +3,10 @@ from django import forms
 from main.models import Order, OrderList, Drink
 
 
+class CreateOrderListForm(forms.Form):
+    name = forms.CharField(label="Order List name: ", max_length=200)
+
+
 class CreateOrderForm(forms.Form):
     order_list = forms.ModelChoiceField(label="Order List Name", queryset=OrderList.objects.all().order_by('name'))
     number = forms.CharField(label="Order number", max_length=200)
