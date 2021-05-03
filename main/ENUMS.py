@@ -9,6 +9,7 @@ CAPPUCCINO = 'Cappuccino'
 BIG = 'Big'
 MEDIUM = 'Medium'
 SMALL = 'Small'
+VAT = 20
 
 DRINKS = [
     (COFFEE, 'Coffee'),

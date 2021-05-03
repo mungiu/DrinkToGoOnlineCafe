@@ -8,20 +8,23 @@
 
 {% block content %}
     <h1>Order list for: {{ ls.name }} </h1>
+    <a href="http://127.0.0.1:8000/create_order/">Create New Order</a>
     <h3>Incomplete orders: </h3>
     {% for order in ls.order_set.all %}
         {% if order.complete == False %}
             <ul>
-                <li><a href="http://127.0.0.1:8000/view_order/{{ ls.name }}/{{ order.number }}">Order number: {{ order.number }}</a></li>
+                <li><a href="http://127.0.0.1:8000/view_order/{{ ls.name }}/{{ order.number }}">Order
+                    number: {{ order.number }}</a></li>
             </ul>
         {% endif %}
     {% endfor %}
 
-    <h3>Completes orders: </h3>
+    <h3>Completed orders: </h3>
     {% for order in ls.order_set.all %}
         {% if order.complete == True %}
- <ul>
-                <li><a href="http://127.0.0.1:8000/view_order/{{ ls.name }}/{{ order.number }}">Order number: {{ order.number }}</a></li>
+            <ul>
+                <li><a href="http://127.0.0.1:8000/view_order/{{ ls.name }}/{{ order.number }}">Order
+                    number: {{ order.number }}</a></li>
             </ul>
         {% endif %}
     {% endfor %}

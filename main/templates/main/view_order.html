@@ -8,33 +8,18 @@
 
 {% block content %}
     <h1>Order details for order number: {{ order.number }} </h1>
-    <p>In the future you should be able to edit your order in here</p>
+    <a href="http://127.0.0.1:8000/create_cocktail/">Add Cocktail</a>
     <h3>Completion status: </h3>
-
     {% if order.complete == False %}
         <p>Incomplete</p>
     {% elif order.complete == True %}
         <p>Complete</p>
     {% endif %}
-
+    <h3>List of ordered cocktails: </h3>
     {% for cocktail in ordered_cocktails %}
-        {% if cocktail.drink == "Tea" %}
-            {% if cocktail.size == "Big" %}
-                <p>Price is: 11.5</p>
-            {% elif cocktail.size == "Medium" %}
-                <p>Price is: 11.0</p>
-            {% elif cocktail.size == "Small" %}
-                <p>Price is: 10.0</p>
-            {% endif %}
-        {% elif cocktail.drink == "Cpffee" %}
-            {% if cocktail.size == "Big" %}
-                <p>Price is: 11.5</p>
-            {% elif cocktail.size == "Medium" %}
-                <p>Price is: 11.0</p>
-            {% elif cocktail.size == "Small" %}
-                <p>Price is: 10.0</p>
-            {% endif %}
-        {% endif %}
+        <p>Drink name: {{ cocktail.drink.name }} - Price before VAT is: {{ cocktail.drink.price }} - Size is: {{ cocktail.drink.size }} - VAT is: {{ cocktail.drink.vat }}</p>
     {% endfor %}
+
+    <h3>Full order price after VAT: {{ order_full_price.sum|stringformat:".2f" }}</h3>
 
 {% endblock %}

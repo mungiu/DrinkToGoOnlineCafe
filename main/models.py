@@ -1,5 +1,7 @@
 from django.db import models
 
+from main.controller import get_price_with_vat
+
 
 class OrderList(models.Model):
     name = models.CharField(max_length=200)
@@ -25,8 +27,11 @@ class Drink(models.Model):
     vat = models.FloatField(max_length=200)
 
     def __str__(self):
-        return ("Drink name: " + self.name +
-                " Drink Price: " + str(self.price))
+        return ("Name: " + self.name +
+                " - Price: " + str(self.price) +
+                " - Size: " + self.size +
+                " - VAT in %: " + str(self.vat) +
+                " - Price with VAT: {:.2f}".format(get_price_with_vat(self.price, self.vat)))
 
 
 class Cocktail(models.Model):

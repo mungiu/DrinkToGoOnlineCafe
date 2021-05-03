@@ -6,4 +6,15 @@
 
 {% block content %}
     <h1>Welcome to Drink to Go Caffe Online HOME PAGE</h1>
+
+    <a href="{% url 'create_order_list' %}">Create Order List</a>
+
+
+    <h2>Existing Order lists:</h2>
+    {% for list in order_lists %}
+        <ul>
+            <li><a href="http://127.0.0.1:8000/order_list/{{ list.name }}">Order list: {{ list.name }}</a></li>
+        </ul>
+    {% endfor %}
+
 {% endblock %}
